@@ -19,7 +19,7 @@ class ArticlesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Categories', 'Users']
+            'contain' => ['Users']
         ];
         $this->set('articles', $this->paginate($this->Articles));
         $this->set('_serialize', ['articles']);
@@ -35,7 +35,7 @@ class ArticlesController extends AppController
     public function view($id = null)
     {
         $article = $this->Articles->get($id, [
-            'contain' => ['Categories', 'Users']
+            'contain' => ['Users']
         ]);
         $this->set('article', $article);
         $this->set('_serialize', ['article']);
@@ -77,9 +77,7 @@ class ArticlesController extends AppController
                 $this->Flash->error(__('The article could not be saved. Please, try again.'));
             }
         }
-        $categories = $this->Articles->Categories->find('treelist', ['limit' => 200]);
-        $users = $this->Articles->Users->find('list', ['limit' => 200]);
-        $this->set(compact('article', 'categories', 'users'));
+        $this->set(compact('article', 'users'));
         $this->set('_serialize', ['article']);
     }
 
@@ -97,6 +95,7 @@ class ArticlesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $article = $this->Articles->patchEntity($article, $this->request->data);
+            $article->user_id = $this->Auth->user('id');
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -104,9 +103,8 @@ class ArticlesController extends AppController
                 $this->Flash->error(__('The article could not be saved. Please, try again.'));
             }
         }
-        $categories = $this->Articles->Categories->find('list', ['limit' => 200]);
         $users = $this->Articles->Users->find('list', ['limit' => 200]);
-        $this->set(compact('article', 'categories', 'users'));
+        $this->set(compact('article', 'users'));
         $this->set('_serialize', ['article']);
     }
 

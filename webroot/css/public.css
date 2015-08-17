@@ -474,8 +474,8 @@ table tr:nth-of-type(even) {
 
 fieldset {
   border: none;
-  padding: 1.25rem;
-  margin: 1.125rem 0;
+  padding: 0;
+  /* margin: 0; */
 }
 
 fieldset legend {
@@ -705,6 +705,10 @@ textarea{
   font-family: 'Playfair Display', serif;
 }
 
+textarea#body{
+  height: 50vh;
+}
+
 textarea:focus, input:focus{
     outline: 0;
 }
@@ -715,4 +719,8 @@ input#title{
 
 *:focus {
     outline: 0;
+}
+
+article{
+  margin-bottom: 2rem;
 }

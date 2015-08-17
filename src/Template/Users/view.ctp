@@ -47,7 +47,6 @@
                 <th><?= __('Body') ?></th>
                 <th><?= __('Created') ?></th>
                 <th><?= __('Modified') ?></th>
-                <th><?= __('Category Id') ?></th>
                 <th><?= __('User Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -58,7 +57,6 @@
                 <td><?= h($articles->body) ?></td>
                 <td><?= h($articles->created) ?></td>
                 <td><?= h($articles->modified) ?></td>
-                <td><?= h($articles->category_id) ?></td>
                 <td><?= h($articles->user_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Articles', 'action' => 'view', $articles->id]) ?>

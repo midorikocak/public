@@ -32,9 +32,6 @@ class ArticlesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Categories', [
-            'foreignKey' => 'category_id'
-        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
@@ -75,7 +72,6 @@ class ArticlesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['category_id'], 'Categories'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
