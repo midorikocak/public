@@ -51,6 +51,7 @@
 
     <?= $this->Html->script('vendor/jquery'); ?>
     <?= $this->Html->script('foundation.min'); ?>
+    <?= $this->Html->script('dropzone'); ?>
     <script>
     $(document).foundation();
     </script>
