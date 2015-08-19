@@ -191,7 +191,7 @@ class ArticlesController extends AppController
             $article->user_id = $this->Auth->user('id');
             if ($this->Articles->save($article)) {
               $this->Flash->success(__('The article has been saved.'));
-              //return $this->redirect(['action' => 'index']);
+              return $this->redirect(['action' => 'index']);
             } else {
               $this->Flash->error(__('The article could not be saved. Please, try again.'));
             }
