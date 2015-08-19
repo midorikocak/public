@@ -31,6 +31,12 @@ class ArticlesTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        
+        $this->belongsToMany('Media', [
+            'foreignKey' => 'media_id',
+            'targetForeignKey' => 'article_id',
+            'joinTable' => 'articles_media'
+        ]);
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
