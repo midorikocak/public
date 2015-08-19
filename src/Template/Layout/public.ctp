@@ -12,7 +12,9 @@
     <?= $this->Html->css('foundation-icons.css') ?>
     <?= $this->Html->css('public.css') ?>
 
-    <?= $this->Html->script('modernizr'); ?>
+    <?= $this->Html->css('quill.snow.css') ?>
+
+    <?= $this->Html->script('vendor/modernizr'); ?>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>

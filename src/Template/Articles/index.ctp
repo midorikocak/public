@@ -7,7 +7,7 @@
               <p class="silent">Written by <a href="#"><?= $article->has('user') ? $this->Html->link($article->user->username, ['controller' => 'Users', 'action' => 'view', $article->user->id]) : '' ?></a> on
               <time pubdate datetime="<?= h($article->created) ?>"><?= h($article->created) ?></time>
               </p>
-              <?= $this->Text->autoParagraph(h($article->body)); ?>
+              <?= strip_tags($article->body, '<ul><ol><li><p><i><a><img><b><br><div><br/>'); ?>
               <?= $this->Html->link(__('View'), ['action' => 'view', $article->id]) ?>
               <?= $this->Html->link(__('Edit'), ['action' => 'edit', $article->id]) ?>
               <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)]) ?>

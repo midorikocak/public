@@ -723,4 +723,31 @@ input#title{
 
 article{
   margin-bottom: 2rem;
+  font-family: 'Playfair Display', serif;
+  color: rgba(0,0,0,0.8);
+}
+
+
+.commands {
+    font-size:2rem;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.commands label{
+    font-size:2rem;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.commands i{
+    cursor: pointer;
+}
+
+.image-upload > input
+{
+    display: none;
+}
+
+#toolbar-editor{
+  height: 50vh;
+  font-family: 'Playfair Display', serif;
 }
