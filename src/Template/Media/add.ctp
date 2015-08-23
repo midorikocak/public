@@ -7,11 +7,11 @@
     </ul>
 </nav>
 <div class="media form large-9 medium-8 columns content">
-    <?= $this->Form->create($media) ?>
+    <?= $this->Form->create($media, ['type'=>'file']) ?>
     <fieldset>
         <legend><?= __('Add Media') ?></legend>
         <?php
-            echo $this->Form->input('filename');
+            echo $this->Form->input('filename',['type'=>'file']);
             echo $this->Form->input('description');
             echo $this->Form->input('articles._ids', ['options' => $articles]);
         ?>

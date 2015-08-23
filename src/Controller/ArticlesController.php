@@ -183,11 +183,19 @@ class ArticlesController extends AppController
             $imagesAfter = $this->extractImages($this->request->data['body']);
 
             $deletedImages = array_diff($imagesBefore,$imagesAfter);
+            $tempImages = $session->read('tempImage');
             if(!empty($deletedImages)){
               foreach ($deletedImages as $file) {
+                if(isset($tempImages[$file])){
+                    unset($tempImages[$file]);
+                }
                 @unlink(WWW_ROOT . DS . 'img' . DS . basename($file));
               }
+              $session->write('tempImage',$tempImages);
             }
+
+            //$media = TableRegistry::get('Media');
+
             $article->user_id = $this->Auth->user('id');
             if ($this->Articles->save($article)) {
               $this->Flash->success(__('The article has been saved.'));
