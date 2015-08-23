@@ -1,5 +1,11 @@
 <div class="articles index large-12 medium-12 columns content">
 <h2><?= h($category->name) ?></h2>
+<?= $this->Html->link(__('Add Article'), ['controller'=>'articles','action' => 'add', h($category->id)]) ?>
+<?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>
+<?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id]) ?>
+<?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]) ?>
+
+
             <?php foreach ($articles as $article): ?>
 
               <article>

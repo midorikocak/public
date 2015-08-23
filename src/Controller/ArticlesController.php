@@ -65,8 +65,12 @@ class ArticlesController extends AppController
     *
     * @return void Redirects on successful add, renders view otherwise.
     */
-    public function add()
+    public function add($categoryId = null)
     {
+      if($categoryId!=null){
+        $category = $this->Articles->Categories->get($categoryId);
+        $this->request->data['category_id'] = $categoryId;
+      }
       $article = $this->Articles->newEntity();
       if ($this->request->is('post')) {
         $article = $this->Articles->patchEntity($article, $this->request->data);
