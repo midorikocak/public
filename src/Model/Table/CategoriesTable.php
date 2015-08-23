@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  * Categories Model
  *
  * @property \Cake\ORM\Association\BelongsTo $ParentCategories
+ * @property \Cake\ORM\Association\HasMany $Articles
  * @property \Cake\ORM\Association\HasMany $ChildCategories
  */
 class CategoriesTable extends Table
@@ -37,6 +38,9 @@ class CategoriesTable extends Table
             'className' => 'Categories',
             'foreignKey' => 'parent_id'
         ]);
+        $this->hasMany('Articles', [
+            'foreignKey' => 'category_id'
+        ]);
         $this->hasMany('ChildCategories', [
             'className' => 'Categories',
             'foreignKey' => 'parent_id'
@@ -56,19 +60,8 @@ class CategoriesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->add('lft', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('lft');
-
-        $validator
-            ->add('rght', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('rght');
-
-        $validator
             ->requirePresence('name', 'create')
             ->notEmpty('name');
-
-        $validator
-            ->allowEmpty('description');
 
         return $validator;
     }

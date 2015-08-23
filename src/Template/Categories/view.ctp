@@ -7,6 +7,8 @@
         <li><?= $this->Html->link(__('New Category'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Parent Categories'), ['controller' => 'Categories', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Parent Category'), ['controller' => 'Categories', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="categories view large-9 medium-8 columns content">
@@ -45,6 +47,40 @@
             <td><?= h($category->modified) ?></tr>
         </tr>
     </table>
+    <div class="related row">
+        <h4><?= __('Related Articles') ?></h4>
+        <?php if (!empty($category->articles)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Title') ?></th>
+                <th><?= __('Body') ?></th>
+                <th><?= __('Category Id') ?></th>
+                <th><?= __('Created') ?></th>
+                <th><?= __('Modified') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($category->articles as $articles): ?>
+            <tr>
+                <td><?= h($articles->id) ?></td>
+                <td><?= h($articles->title) ?></td>
+                <td><?= h($articles->body) ?></td>
+                <td><?= h($articles->category_id) ?></td>
+                <td><?= h($articles->created) ?></td>
+                <td><?= h($articles->modified) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Articles', 'action' => 'view', $articles->id]) ?>
+
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Articles', 'action' => 'edit', $articles->id]) ?>
+
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Articles', 'action' => 'delete', $articles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $articles->id)]) ?>
+
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+    </div>
     <div class="related row">
         <h4><?= __('Related Categories') ?></h4>
         <?php if (!empty($category->child_categories)): ?>

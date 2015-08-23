@@ -2,6 +2,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Category'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="categories index large-9 medium-8 columns content">
@@ -11,8 +13,6 @@
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('parent_id') ?></th>
-                <th><?= $this->Paginator->sort('lft') ?></th>
-                <th><?= $this->Paginator->sort('rght') ?></th>
                 <th><?= $this->Paginator->sort('name') ?></th>
                 <th><?= $this->Paginator->sort('description') ?></th>
                 <th><?= $this->Paginator->sort('created') ?></th>
@@ -24,8 +24,6 @@
             <tr>
                 <td><?= $this->Number->format($category->id) ?></td>
                 <td><?= $category->has('parent_category') ? $this->Html->link($category->parent_category->name, ['controller' => 'Categories', 'action' => 'view', $category->parent_category->id]) : '' ?></td>
-                <td><?= $this->Number->format($category->lft) ?></td>
-                <td><?= $this->Number->format($category->rght) ?></td>
                 <td><?= h($category->name) ?></td>
                 <td><?= h($category->description) ?></td>
                 <td><?= h($category->created) ?></td>

@@ -43,6 +43,10 @@ class ArticlesTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
+
+        $this->belongsTo('Categories', [
+            'foreignKey' => 'category_id',
+        ]);
     }
 
     /**
