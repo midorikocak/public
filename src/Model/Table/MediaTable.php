@@ -27,7 +27,7 @@ class MediaTable extends Table
     parent::initialize($config);
 
     $this->table('media');
-    $this->displayField('id');
+    $this->displayField('filename');
     $this->primaryKey('id');
 
     $this->belongsToMany('Articles', [
@@ -74,13 +74,13 @@ class MediaTable extends Table
         || ($file["type"] == "image/png"))
         && ($file["size"] < 2000000)
         && in_array($extension, $allowedExts)) {
-          if (file_exists(WWW_ROOT . DS . 'img' . DS . $file["name"])) {
+          if (file_exists(WWW_ROOT . 'img' . DS . $file["name"])) {
             return null;
           } else {
             $rand = substr(md5(microtime()),rand(0,26),5);
             move_uploaded_file($file["tmp_name"],
-            WWW_ROOT . DS . 'img' . DS . $rand . '.' . $file["name"]);
-            chmod(WWW_ROOT . DS . 'img'. DS . $rand . '.' . $file["name"], 0777);
+            WWW_ROOT . 'img' . DS . $rand . '.' . $file["name"]);
+            chmod(WWW_ROOT . 'img'. DS . $rand . '.' . $file["name"], 0777);
             // Önce veritabanı sorgumuzu hazırlayalım.
             return $rand . '.' . $file["name"];
           }
@@ -93,11 +93,26 @@ class MediaTable extends Table
       return null;
     }
 
+    public function beforeDelete($event, $entity, $options)
+    {
+      @unlink(WWW_ROOT . 'img' . DS . $entity['filename']);
+    }
+
+    public function getIdFromFilename($filename){
+      $query =  $this->find('all',['conditions'=>['filename'=>$filename]]);
+      if(!empty($query->first())){
+        return $query->first()->id;
+      }
+    }
+
     public function beforeMarshal( $event, \ArrayObject $data, \ArrayObject $options)
     {
       $data['filename'] = $this->saveFile($data['filename']);
     }
 
+    public function afterSave($event, $entity, $options){
+
+    }
     // public function beforeSave($event, $entity, $options)
     // {
     //   return false;

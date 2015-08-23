@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Routing\Router;
 
 /**
  * Media Controller
@@ -47,17 +48,23 @@ class MediaController extends AppController
     {
         $media = $this->Media->newEntity();
         if ($this->request->is('post')) {
+          if(isset($this->request->data['file']) && $this->request->data['file']['error']==0){
+            $this->request->data['filename'] = $this->request->data['file'];
+            unset($this->request->data['file']);
+          }
             $media = $this->Media->patchEntity($media, $this->request->data);
             if ($this->Media->save($media)) {
-                $this->Flash->success(__('The media has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                // $this->Flash->success(__('The media has been saved.'));
+                // return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The media could not be saved. Please, try again.'));
             }
         }
+
         $articles = $this->Media->Articles->find('list', ['limit' => 200]);
-        $this->set(compact('media', 'articles'));
-        $this->set('_serialize', ['media']);
+        $mediaUrl = Router::url('/', true) .'img/' . $media['filename'];
+        $this->set(compact('media','mediaUrl', 'articles'));
+        $this->set('_serialize', ['mediaUrl','media']);
     }
 
     /**

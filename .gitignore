@@ -3,3 +3,4 @@
 /tmp/*
 /logs/*
 .DS_Store
+/webroot/img/*

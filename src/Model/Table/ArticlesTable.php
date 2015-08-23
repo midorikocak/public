@@ -6,6 +6,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 
 /**
  * Articles Model
@@ -31,10 +33,10 @@ class ArticlesTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
-        
+
         $this->belongsToMany('Media', [
-            'foreignKey' => 'media_id',
-            'targetForeignKey' => 'article_id',
+            'foreignKey' => 'article_id',
+            'targetForeignKey' => 'media_id',
             'joinTable' => 'articles_media'
         ]);
 
@@ -63,7 +65,36 @@ class ArticlesTable extends Table
 
         return $validator;
     }
-    
+
+    private function extractImages($string){
+      $return  = [];
+
+      $doc = new \DOMDocument();
+
+      $doc->loadHTML($string);
+      $xpath = new \DOMXPath($doc);
+      $serverName = Router::url('/', true);
+      $query = "//img/@src[starts-with(., '$serverName')]";
+      $nodelist = $xpath->query($query);
+      foreach ($nodelist as $element) {
+        //print_r($element->value);
+        array_push($return, $element->value);
+        //echo $element->attributes->getNamedItem('src')->nodeValue;
+      }
+      return $return;
+    }
+
+    public function beforeMarshal( $event, \ArrayObject $data, \ArrayObject $options)
+    {
+      $media = TableRegistry::get('Media');
+      $mediaArray = $this->extractImages($data['body']);
+      $data['media']['_ids'] = [];
+      foreach($mediaArray as $filename){
+        array_push($data['media']['_ids'], $media->getIdFromFilename(str_replace(Router::url('/', true)."img/","",$filename)));
+      }
+    }
+
+
     public function isOwnedBy($articleId, $userId)
     {
         return $this->exists(['id' => $articleId, 'user_id' => $userId]);

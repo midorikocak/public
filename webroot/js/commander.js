@@ -69,11 +69,10 @@ editor.on('text-change', function(delta, source) {
 });
 
 var fileDrop = new Dropzone(".preview", {
-  url: "http://localhost/public/articles/addImage",
+  url: "http://localhost/public/media/add",
   init: function() {
     this.on("success", function(file,response) {
-      $('.ql-image-tooltip input').val(response.response);
-
+      $('.ql-image-tooltip input').val(response.mediaUrl);
       editor.getModule('image-tooltip').insertImage();
       selectImage();
        });
