@@ -42,6 +42,13 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
+          'storage' => 'Session',
+          'authError' => 'Did you really think you are allowed to see that?',
+          'authenticate' => [
+            'Form' => [
+              'fields' => ['username' => 'email']
+              ]
+            ],
             'loginRedirect' => [
                 'controller' => 'Articles',
                 'action' => 'index'

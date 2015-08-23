@@ -38,7 +38,7 @@ class UsersController extends AppController
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
-    
+
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);

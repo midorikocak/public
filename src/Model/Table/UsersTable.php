@@ -26,7 +26,7 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->table('users');
-        $this->displayField('username');
+        $this->displayField('email');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -59,11 +59,15 @@ class UsersTable extends Table
     //
     //     return $validator;
     // }
-    
+
     public function validationDefault(Validator $validator)
         {
             return $validator
-                ->notEmpty('username', 'A username is required')
+            ->requirePresence('email')
+            ->add('email', 'validFormat', [
+              'rule' => 'email',
+              'message' => 'E-mail must be valid'
+              ])
                 ->notEmpty('password', 'A password is required')
                 ->notEmpty('role', 'A role is required')
                 ->add('role', 'inList', [
@@ -81,7 +85,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['username']));
+        $rules->add($rules->isUnique(['email']));
         return $rules;
     }
 }
