@@ -38,6 +38,16 @@
     </nav>
   </div>
 
+  <div class="row">
+    <nav class="top-bar expanded" data-topbar role="navigation">
+        <section class="top-bar-section">
+        <?php
+          echo $this->cell('Menu');
+        ?>
+      </section>
+    </nav>
+  </div>
+
     <?= $this->Flash->render() ?>
     <div class="row">
     <section class="container clearfix">

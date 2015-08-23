@@ -16,14 +16,22 @@ class CategoriesController extends AppController
      *
      * @return void
      */
+    // public function index()
+    // {
+    //     $this->paginate = [
+    //         'contain' => ['ParentCategories']
+    //     ];
+    //     $this->set('categories', $this->paginate($this->Categories));
+    //     $this->set('_serialize', ['categories']);
+    // }
+
     public function index()
-    {
-        $this->paginate = [
-            'contain' => ['ParentCategories']
-        ];
-        $this->set('categories', $this->paginate($this->Categories));
-        $this->set('_serialize', ['categories']);
-    }
+{
+    $categories = $this->Categories->find()
+        ->order(['lft' => 'ASC']);
+    $this->set(compact('categories'));
+    $this->set('_serialize', ['categories']);
+}
 
     /**
      * View method
@@ -34,9 +42,16 @@ class CategoriesController extends AppController
      */
     public function view($id = null)
     {
-        $category = $this->Categories->get($id, [
-            'contain' => ['ParentCategories', 'Articles', 'ChildCategories']
-        ]);
+      $this->paginate = [
+        'Category.Articles' => []
+      ];
+
+      $articles = $this->paginate($this->Categories->Articles->find());
+
+
+      $this->set('articles', $articles);
+
+        $category = $this->Categories->get($id);
         $this->set('category', $category);
         $this->set('_serialize', ['category']);
     }
@@ -87,6 +102,30 @@ class CategoriesController extends AppController
         $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
         $this->set(compact('category', 'parentCategories'));
         $this->set('_serialize', ['category']);
+    }
+
+    public function moveUp($id = null)
+    {
+        $this->request->allowMethod(['post', 'put']);
+        $category = $this->Categories->get($id);
+        if ($this->Categories->moveUp($category)) {
+            $this->Flash->success('The category has been moved Up.');
+        } else {
+            $this->Flash->error('The category could not be moved up. Please, try again.');
+        }
+        return $this->redirect($this->referer(['action' => 'index']));
+    }
+
+    public function moveDown($id = null)
+    {
+        $this->request->allowMethod(['post', 'put']);
+        $category = $this->Categories->get($id);
+        if ($this->Categories->moveDown($category)) {
+            $this->Flash->success('The category has been moved down.');
+        } else {
+            $this->Flash->error('The category could not be moved down. Please, try again.');
+        }
+        return $this->redirect($this->referer(['action' => 'index']));
     }
 
     /**

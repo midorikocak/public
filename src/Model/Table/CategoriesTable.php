@@ -66,6 +66,12 @@ class CategoriesTable extends Table
         return $validator;
     }
 
+    public function getMenu(){
+      $menuObject = $this->find()
+          ->order(['lft' => 'ASC']);
+      return $menuObject;
+    }
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.

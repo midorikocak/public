@@ -1,3 +1,6 @@
+<?php
+if($session->read('Auth.User')):
+?>
 <ul class="right">
   <li class="has-dropdown">
     <a href="#"><?= $session->read('Auth.User.email')?></a>
@@ -8,3 +11,6 @@
     </ul>
   </li>
 </ul>
+<?php
+endif;
+?>

@@ -1,0 +1,26 @@
+<ul>
+  <?php foreach ($categories as $category): ?>
+    <li><?php
+      if(empty($category->link))
+      {
+        echo $this->Html->link(
+        h($category->name), ['controller' => 'Categories', 'action' => 'view' , $category->id, '_full' => true]);
+      }else{
+        echo $this->Html->link(
+        h($category->name),$category->link);
+      }
+ ?></li>
+  <?php endforeach; ?>
+<?php
+  if($session->read('Auth.User')):
+?>
+  <li>
+    <?php
+    echo $this->Html->link(
+    '+', ['controller' => 'Categories', 'action' => 'add' , '_full' => true]);
+    ?>
+  </li>
+</ul>
+<?php
+endif;
+ ?>
