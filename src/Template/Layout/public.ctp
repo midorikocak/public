@@ -15,7 +15,7 @@
     <?= $this->Html->css('quill.snow.css') ?>
 
     <?= $this->Html->script('vendor/modernizr'); ?>
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <!-- <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> -->
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
@@ -31,6 +31,7 @@
             <li class="name">
                 <h1><a href="">Public</a></h1>
             </li>
+            <!-- <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li> -->
         </ul>
         <section class="top-bar-section">
           <?= $this->element('user') ?>
@@ -61,6 +62,7 @@
 
     <?= $this->Html->script('vendor/jquery'); ?>
     <?= $this->Html->script('foundation.min'); ?>
+    <?= $this->Html->script('foundation/foundation.dropdown'); ?>
     <?= $this->Html->script('dropzone'); ?>
     <script>
     $(document).foundation();

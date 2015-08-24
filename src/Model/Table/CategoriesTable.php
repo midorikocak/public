@@ -67,7 +67,7 @@ class CategoriesTable extends Table
     }
 
     public function getMenu(){
-      $menuObject = $this->find()
+      $menuObject = $this->find('threaded')
           ->order(['lft' => 'ASC']);
       return $menuObject;
     }

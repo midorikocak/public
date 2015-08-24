@@ -1,6 +1,7 @@
 <ul>
   <?php foreach ($categories as $category): ?>
     <li><?php
+      //var_dump($category->children);
       if(empty($category->link))
       {
         echo $this->Html->link(
