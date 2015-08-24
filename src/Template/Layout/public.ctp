@@ -29,7 +29,7 @@
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 colmuns">
             <li class="name">
-                <h1><a href="">Public</a></h1>
+                <h1><a href="<?= $serverUrl ?>">Public</a></h1>
             </li>
             <!-- <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li> -->
         </ul>

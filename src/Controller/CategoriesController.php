@@ -106,7 +106,7 @@ class CategoriesController extends AppController
 
     public function moveUp($id = null)
     {
-        $this->request->allowMethod(['post', 'put']);
+        $this->request->allowMethod(['post', 'put','get']);
         $category = $this->Categories->get($id);
         if ($this->Categories->moveUp($category)) {
             $this->Flash->success('The category has been moved Up.');

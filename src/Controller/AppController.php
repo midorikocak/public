@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Routing\Router;
 
 /**
 * Application Controller
@@ -60,17 +61,18 @@ class AppController extends Controller
                     ]
                         ]);
 
-                if ($this->Auth->user('id')) {
+                //if ($this->Auth->user('id')) {
                     $this->viewBuilder()->layout('public');
-                } else {
-                    $this->viewBuilder()->layout('logout');
-                }
+                //} else {
+                    //$this->viewBuilder()->layout('logout');
+                //}
             }
 
             public function beforeFilter(Event $event)
             {
                 $this->Auth->allow(['index', 'view', 'display']);
                  $this->set('session', $this->request->session());
+                 $this->set('serverUrl', Router::url('/', true));
             }
 
             public function isAuthorized($user)
