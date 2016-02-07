@@ -1,8 +1,6 @@
-# CakePHP Blog Tutorial
+# Open Source Content Management System
 
-[![License](https://poser.pugx.org/cakephp/app/license.svg)](https://packagist.org/packages/cakephp/app)
-
-A Complete working example code of [CakePHP Blog Tutorial](http://book.cakephp.org/3.0/en/tutorials-and-examples/blog/blog.html) uses version 3.1.
+Open Source Content Management System inspired by Medium.com
 
 ## Installation
 
